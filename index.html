@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Mangás</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #1e1b29;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            background-color: #6a0dad;
+            padding: 20px;
+            margin: 0;
+        }
+        .filters {
+            margin: 20px;
+        }
+        .filters button {
+            background: #6a0dad;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        .filters button:hover {
+            background: #9b30ff;
+        }
+        .catalogo {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+        .manga {
+            margin: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            background: #4b0082;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            transition: transform 0.3s;
+            width: 200px;
+            cursor: pointer;
+        }
+        .manga:hover {
+            transform: scale(1.05);
+        }
+        .manga img {
+            width: 150px;
+            height: 220px;
+            border-radius: 5px;
+            display: block;
+            margin: auto;
+        }
+        .manga p {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Catálogo de Mangás</h1>
+    <div class="filters">
+        <button onclick="filterMangas('todos')">Todos</button>
+        <button onclick="filterMangas('ação')">Ação</button>
+        <button onclick="filterMangas('aventura')">Aventura</button>
+        <button onclick="filterMangas('mistério')">Mistério</button>
+    </div>
+    <div id="catalogo" class="catalogo"></div>
+    <script>
+        const mangas = [
+            { title: "O Melhor Engenheiro Do Mundo", cover: "https://assets.onecompiler.app/43a76nmc3/43a778pkw/optimized-13132-18_12_.webp", description: "", category: "ação", link: "https://agate456.github.io/agate-ma-1/" },
+            { title: "Mangá 2", cover: "cover2.jpg", description: "Uma história emocionante de amizade.", category: "aventura", link: "manga2.html" },
+            { title: "Mangá 3", cover: "cover3.jpg", description: "Mistério e suspense em um mundo desconhecido.", category: "mistério", link: "manga3.html" },
+            { title: "Mangá 4", cover: "cover4.jpg", description: "Ação eletrizante com batalhas intensas.", category: "ação", link: "manga4.html" }
+        ];
+        
+        function loadCatalogo(filter = 'todos') {
+            const container = document.getElementById("catalogo");
+            container.innerHTML = "";
+            
+            mangas.filter(manga => filter === 'todos' || manga.category === filter).forEach(manga => {
+                const div = document.createElement("div");
+                div.className = "manga";
+                div.onclick = () => window.location.href = manga.link;
+                
+                const img = document.createElement("img");
+                img.src = manga.cover;
+                img.alt = "Capa do " + manga.title;
+                
+                const title = document.createElement("h3");
+                title.innerText = manga.title;
+                
+                const desc = document.createElement("p");
+                desc.innerText = manga.description;
+                
+                div.appendChild(img);
+                div.appendChild(title);
+                div.appendChild(desc);
+                container.appendChild(div);
+            });
+        }
+        
+        function filterMangas(category) {
+            loadCatalogo(category);
+        }
+        
+        loadCatalogo();
+    </script>
+</body>
+</html>
